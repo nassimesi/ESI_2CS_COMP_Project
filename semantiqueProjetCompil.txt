@@ -1,0 +1,59 @@
+P -> DEBUT \n INTERFACE I \n INITIALISATION Lin \n ACTION \n Ga \n FIN
+I -> C \n I  | C// add (C, I.v)
+I -> C 
+C -> COMP Cid : Ct ( Pr ) \n PROP \n Lp \n E \n Le //C.i= Cid.v; C.t=Ct.v; 
+                                                    C.p=Pr.v; C.a= Lp; C.e=Le.v
+E -> EVT | EVET
+Pr -> Cid // found = trouver Cid dans C.i pour chaque C dans I.v; 
+            If (found) Pr.v=cid.v
+Lp -> Pro ;\n lp // add(Pro, Lp.v)
+Lp ->  epsilon //  
+Pro -> Lproid : Prot ;\n //Pro.id = Lproid ; pro.t = Prot.v
+Lproid -> Proid ,Lproid // add(Proid, lproid.v); add(Proid)
+Lproid -> Proid // Lproid.v = Proid.v
+Prot -> int // Prot.v = int  
+Prot -> double // Prot.v = double
+Prot -> string // // Prot.v = string
+Prot -> boolean // // Prot.v = boolean
+Prot -> { En } // Prot.v = En.v
+En -> At , En // add(At, En.v)
+En -> At // 
+Le -> Ev Le | Ev// add (Ev, Le.v)
+Ev -> Evid Pa { Eve } \n  // Ev.i = Evid.i ; Ev.p = Pa.v; Ev.e = Eve.v
+Eve -> IF Evc THEN Leva //  if (Evc.v) Eve.v = Leva.v  
+Eve -> Leva // Eve.v = Leva.v
+Evc -> Proid < Coa // trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == coa.t) Evc.v= Pro.v < Coa
+Evc -> Proid > Coa // trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == coa.t) Evc.v= Pro.v > Coa
+Evc -> Proid = At //trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == At.v.t) Evc.v= Pro.v == At
+Evc -> Proid <> At //trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == At.v.t) Evc.v= Pro.v <> At
+At -> Coa // At.v = Coa
+At -> Ncoa // At.v = Ncoa
+Coa -> entier // Coa.v = entier ; Coa.t = int
+Coa -> flottant // Coa.v = flottant ; Coa.t = double
+Ncoa -> chcar // Ncoa.v = chchar ; Ncoa.t = string
+Ncoa -> booléen // Ncoa.v = booléen ; Ncoa.t = boolean
+Leva -> Eva \n and Leva // add (Eva.V, Leva.v)
+Leva -> Eva \n // Leva.v = Eva.v
+Eva -> Proid := At // trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == At.v.t) Eva.v= At.v.v
+Eva -> Proid := At + At2 // trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == At.v.t) Eva.v= At.v.v + At2.v.v
+Eva -> Proid := At - At2 // trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == At.v.t) Eva.v= At.v.v - At2.v.v
+Eva -> Proid := At * At2 // trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == At.v.t) Eva.v= At.v.v * At2.v.v
+Eva -> Proid := At / At2 // trouver Pro tel que Pro.id.v contient Proid; 
+                    if (Pro.t == At.v.t) Eva.v= At.v.v / At2.v.v
+At2 -> At; //At2.v = At.v;
+Pa -> ( Lpaid ) \n // Pa.v = Lpaid.v
+Lpaid -> Paid , Lpaid // add(Paid, Lpaid.v)
+Lpaid -> epsilon
+Lin -> In Lin | In
+In -> Cid :: Proid := At ;\n 
+Ga -> { A } | { Ga ; Ga } | { Ga + Ga } | { Ga ~ Ga }  
+A -> Evid ( Lv )
+Lv -> Cid , Lv | Cid
